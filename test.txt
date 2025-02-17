@@ -1,0 +1,19 @@
+import { axios } from "@pipedream/platform"
+export default defineComponent({
+  props: {
+    astrology_api: {
+      type: "app",
+      app: "astrology_api",
+    }
+  },
+  async run({steps, $}) {
+    return await axios($, {
+      method: "post",
+      url: `https://json.astrologyapi.com/v1/sun_sign_prediction/daily/scorpio`,
+      auth: {
+        username: `${this.astrology_api.$auth.user_id}`,
+        password: `${this.astrology_api.$auth.api_key}`,
+      },
+    })
+  },
+})
